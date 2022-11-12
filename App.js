@@ -1,16 +1,61 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ToastAndroid,
+} from "react-native";
 
 export default function App() {
+  const [list, setlist] = useState([]);
+  const [text, setText] = useState("");
+  const textInputHandle = (props) => {
+    setText(props);
+  };
+  const addGoals = () => {
+    if (text.length != 0) {
+      if (list.includes(text)) {
+        showToastWithGravity("You have already entered this goal!");
+        setText("");
+      } else {
+        setlist((currentGoals)=>[...currentGoals,text])
+        // list.push(text);
+        setText("");
+      }
+    } else {
+      showToastWithGravity("Enter something");
+    }
+  };
+  const deleteGoal = (goal) => {
+    setlist(list.filter((v) => v != goal));
+  };
+  const showToastWithGravity = (txt) => {
+    ToastAndroid.showWithGravity(txt, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+  };
   return (
     <View style={styles.main}>
       <View style={styles.search}>
-        <TextInput style={styles.textinput} placeholder="Your Course goal!" />
-        <Button title="Add Goal" />
+        <TextInput
+          style={styles.textinput}
+          placeholder="Your Course goal!"
+          onChangeText={textInputHandle}
+          value={text}
+        />
+        <Button title="Add Goal" onPress={addGoals} />
       </View>
-      {/* <View style={styles.border}></View> */}
       <View style={styles.log}>
         <Text style={styles.logtxt}>List of goals...</Text>
+        {list.map((goal, index) => {
+          return (
+            <View>
+              <Text key={index} onPress={() => deleteGoal(goal)}>{`${
+                index + 1
+              }. ${goal}`}</Text>
+            </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -19,17 +64,17 @@ export default function App() {
 const styles = StyleSheet.create({
   main: {
     paddingHorizontal: 40,
-    marginTop:10,
+    marginTop: 10,
     // height:'100%',
-    flex:1
+    flex: 1,
   },
   search: {
-    flex:1,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:'center',
-    borderBottomColor:'gray',
-    borderBottomWidth:1
+    alignItems: "center",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
   },
   textinput: {
     borderWidth: 1,
@@ -37,12 +82,11 @@ const styles = StyleSheet.create({
     width: "70%",
     padding: 10,
   },
-  log:{
-    flex:5,
-    marginTop:25
-  }
-  ,
-  logtxt:{
-    fontSize:25
-  }
+  log: {
+    flex: 5,
+    marginTop: 25,
+  },
+  logtxt: {
+    fontSize: 25,
+  },
 });
