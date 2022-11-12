@@ -20,7 +20,7 @@ export default function App() {
         showToastWithGravity("You have already entered this goal!");
         setText("");
       } else {
-        setlist((currentGoals)=>[...currentGoals,text])
+        setlist((currentGoals) => [...currentGoals, text]);
         // list.push(text);
         setText("");
       }
@@ -46,13 +46,15 @@ export default function App() {
         <Button title="Add Goal" onPress={addGoals} />
       </View>
       <View style={styles.log}>
-        <Text style={styles.logtxt}>List of goals...</Text>
+        <Text style={styles.logtxt}>List of goals 🎯</Text>
         {list.map((goal, index) => {
           return (
             <View>
-              <Text key={index} onPress={() => deleteGoal(goal)}>{`${
-                index + 1
-              }. ${goal}`}</Text>
+              <Text
+                key={index}
+                style={styles.goal}
+                onPress={() => deleteGoal(goal)}
+              >{`${index + 1}. ${goal}`}</Text>
             </View>
           );
         })}
@@ -67,14 +69,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     // height:'100%',
     flex: 1,
+    flexDirection: "column-reverse",
   },
   search: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
+    borderTopColor: "gray",
+    borderTopWidth: 1,
   },
   textinput: {
     borderWidth: 1,
@@ -84,9 +87,18 @@ const styles = StyleSheet.create({
   },
   log: {
     flex: 5,
-    marginTop: 25,
+    marginVertical: 25,
   },
   logtxt: {
-    fontSize: 25,
+    fontSize: 40,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  goal: {
+    backgroundColor: "gray",
+    fontSize: 30,
+    padding: 5,
+    borderRadius: 5,
+    marginVertical: 5,
   },
 });
