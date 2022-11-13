@@ -3,35 +3,31 @@ import { View, ToastAndroid } from "react-native";
 import GoalInput from "./components/GoalInput";
 import ListOfGoals from "./components/ListOfGoals";
 import styles from "./components/Styles";
+import showToast from "./components/ShowToast";
 
 export default function App() {
   const [list, setlist] = useState([]);
   const [text, setText] = useState("");
-  const textInputHandle = (props) => {
-    setText(props);
-  };
+
   const addGoals = () => {
     if (text.length != 0) {
       if (list.includes(text)) {
-        showToastWithGravity("You have already entered this goal!");
+        showToast("You have already entered this goal!");
         setText("");
       } else {
         setlist((currentGoals) => [...currentGoals, text]);
-        // list.push(text);
         setText("");
       }
     } else {
-      showToastWithGravity("Enter something");
+      showToast("Enter something");
     }
   };
-  const showToastWithGravity = (txt) => {
-    ToastAndroid.showWithGravity(txt, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
-  };
+  
   return (
     <View style={styles.main}>
       <GoalInput
         text={text}
-        textInputHandle={textInputHandle}
+        textInputHandle={(props) => {setText(props)}}
         addGoals={addGoals}
       />
       <ListOfGoals list={list} setlist={setlist} />
