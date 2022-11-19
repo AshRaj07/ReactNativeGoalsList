@@ -33,11 +33,16 @@ const styles = StyleSheet.create({
     },
     goal: {
       backgroundColor: "gray",
-      fontSize: 30,
-      padding: 5,
+      // fontSize: 30,
+      // padding: 5,
       borderRadius: 5,
       marginVertical: 5,
     },
+    goaltxt:{
+      padding:10,
+      fontSize:30,
+      borderRadius:5
+    }
   });
 
 export default styles  

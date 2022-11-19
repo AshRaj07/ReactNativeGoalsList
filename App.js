@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, ToastAndroid } from "react-native";
+import { View} from "react-native";
 import GoalInput from "./components/GoalInput";
 import ListOfGoals from "./components/ListOfGoals";
 import styles from "./components/Styles";
-import showToast from "./components/ShowToast";
+import showToast from "./components/showToast";
 
 export default function App() {
   const [list, setlist] = useState([]);
